@@ -1,0 +1,6 @@
+curl --header "Content-Type: application/json"  --request GET "localhost:3000/users"
+curl --header "Content-Type: application/json"  --request PUT --data '{"username":"test","password":"test", "email":"test"}' "localhost:3000/users"
+curl --header "Content-Type: application/json"  --request GET "localhost:3000/users/1"
+curl --header "Content-Type: application/json"  --request POST --data '{"username":"test","password":"123"}' "localhost:3000/users/1"
+curl --header "Content-Type: application/json"  --request PATCH --data '{"key":"username","value":"newname"}' "localhost:3000/users/1"
+curl --header "Content-Type: application/json"  --request DELETE "localhost:3000/users/1"

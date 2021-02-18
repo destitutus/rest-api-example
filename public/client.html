@@ -1,0 +1,56 @@
+<!DOCTYPE html>
+<html>
+<head>
+	<title>Client</title>
+	<style>
+		* {
+			font-size: 24px;
+		}
+		#users {
+		  font-family: Arial, Helvetica, sans-serif;
+		  border-collapse: collapse;
+		  width: 100%;
+		}
+		#users td, #users th {
+		  border: 1px solid #ddd;
+		  padding: 8px;
+		}
+		#users tr:nth-child(even){background-color: #f2f2f2;}
+		#users tr:hover {background-color: #ddd;}
+		#users th {
+		  padding-top: 12px;
+		  padding-bottom: 12px;
+		  text-align: left;
+		  background-color: #4CAF50;
+		  color: white;
+		}
+	</style>
+</head>
+<body>
+	<div id="users"></div>
+	<button onclick="getUsers()">Show users</button>
+	<button onclick="putUser()">Add new user</button>
+	<script>
+		function getUsers() {
+			fetch('http://localhost:3000/users')
+			  .then(response => response.json())
+			  .then(data => {
+			  	const usersData = data.map(user => `<tr><td>${user.id}</td><td>${user.username}</td><td>${user.password}</td></tr>`).join('')
+			    document.getElementById('users').innerHTML = '<table><tr><th>id</th><th>username</th><th>password</th>' + usersData + '</table>'
+			  })
+		}
+		getUsers()
+
+		function putUser() {
+			fetch('http://localhost:3000/users', {
+			    method: 'PUT',
+			    headers: {
+			      'Accept': 'application/json',
+			      'Content-Type': 'application/json'
+			    },
+			    body: JSON.stringify({username: 'js user name', password: 'password'})
+			  }).then(() => getUsers())
+		}
+	</script>
+</body>
+</html>
